@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+    <div ng-controller="myCtrl">
+        <button ng-click="count = count + 1">点我！</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{count}}
+
+        <br><br>
+
+        <button ng-click="toggle()">隐藏显示</button>
+        <p ng-hide="myVar">
+        <!--<p ng-show="myVar">-->
+            名：<input type="text" ng-model="firstName"><br>
+            姓：<input type="text" ng-model="lastName"><br><br>
+            姓名：{{funName()}}
+        </p>
+
+        <br><br>
+
+        <form novalidate>
+            First Name:<br>
+            <input type="text" ng-model="user.firstName"><br>
+            Last Name:<br>
+            <input type="text" ng-model="user.lastName">
+            <br><br>
+            <button ng-click="reset()">RESET</button>
+        </form>
+        <p>form = {{user }}</p>
+        <p>master = {{master}}</p>
+
+        <br><br>
+
+        <form name="myForm" novalidate>
+            <p>用户名:<br>
+                <input type="text" name="user" ng-model="user" required>
+                <span style="color:red" ng-show="myForm.user.$dirty && myForm.user.$invalid">
+                    <span ng-show="myForm.user.$error.required">用户名是必须的。</span>
+                </span>
+            </p>
+            <p>邮箱:<br>
+                <input type="email" name="email" ng-model="email" required>
+                <span style="color:red" ng-show="myForm.email.$dirty && myForm.email.$invalid">
+                    <span ng-show="myForm.email.$error.required">邮箱是必须的。</span>
+                    <span ng-show="myForm.email.$error.email">非法的邮箱地址。</span>
+                </span>
+            </p>
+            <p>
+                <input type="submit"
+                       ng-disabled="myForm.user.$dirty && myForm.user.$invalid ||
+                       myForm.email.$dirty && myForm.email.$invalid">
+            </p>
+        </form>
+
+        <br><br>
+
+        <p>{{ x1 }}</p>
+        <p>{{ x2 }}</p>
+
+        <br><br>
+
+        <p>{{ S1 }}</p>
+        <p>{{ S2 }}</p>
+    </div>
+
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function($scope) {
+            $scope.count = 0;
+
+            $scope.firstName = "John";
+            $scope.lastName = "Doe";
+            $scope.myVar = false;
+            $scope.funName = function () {
+                return $scope.firstName + " " + $scope.lastName;
+            };
+            $scope.toggle = function () {
+                $scope.myVar = !$scope.myVar;
+            };
+
+            $scope.master = {firstName:"John", lastName:"Doe"};
+            $scope.reset = function() {
+                $scope.user = angular.copy($scope.master);
+            };
+            $scope.reset();
+
+            $scope.user = 'John Doe';
+            $scope.email = 'john.doe@gmail.com';
+
+            $scope.x1 = "JOHN";
+            $scope.x2 = angular.lowercase($scope.x1);
+
+            $scope.S1 = "3";
+            $scope.S2 = angular.isNumber($scope.S1);
+        });
+    </script>
+</body>
+</html>
