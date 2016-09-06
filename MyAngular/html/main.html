@@ -1,0 +1,100 @@
+<!DOCTYPE>
+<html>
+<head>
+    <meta content="utf-8">
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body data-ng-app="myApp">
+    <!--AngularJS 指令是扩展的 HTML 属性，带有前缀 ng-。-->
+    <!--ng-app 指令初始化一个 AngularJS 应用程序。-->
+    <!--ng-init 指令初始化应用程序数据。-->
+    <!--ng-model 指令把元素值（比如输入域的值）绑定到应用程序。-->
+    <runoob-directive></runoob-directive>
+    <div runoob-directive></div>
+    <!--<div class="runoob-directive"></div>-->
+    <!-- directive: runoob-directive -->
+
+    <div data-ng-app="">
+
+        <div ng-init="quantity=1;cost=5">
+            <p>总价: <span ng-bind="quantity * cost"></span></p>
+            <p>总价: {{quantity*cost}}</p>
+        </div>
+
+        <div ng-init="person={firstName:'John',lastName:'Doe'}">
+            <p>姓为 {{ person.lastName }}</p>
+            <p>姓为 <span ng-bind="person.lastName"></span></p>
+        </div>
+
+        <div ng-init="points=[1,15,19,2,40]">
+            <p>第三个值为 {{ points[2] }}</p>
+            <p>第三个值为 <span ng-bind="points[2]"></span></p>
+        </div>
+
+        <div ng-init="firstName='john'">
+            <p>在输入框中输入：</p>
+            <p>姓名：<input type="text" ng-model="firstName"></p>
+            <p>你的输入为：{{firstName}}</p>
+        </div>
+
+        <div data-ng-init="quantity=1;price=5">
+            <h2>价格计算器：</h2>
+            数量：<input type="number" ng-model="quantity">
+            价格：<input type="number" ng-model="price">
+            <p><b>总价：</b>{{quantity * price}}</p>
+        </div>
+
+        <div data-ng-app="" data-ng-init="names=['John','Hege','Kai'];ages=[12,16,14]">
+            <p>使用ng-repeat来循环列表</p>
+            <ul>
+                <!--<li data-ng-repeat="x in names;y in ages">-->
+                <!--<li data-ng-repeat="x in names" data-ng-repeat="y in ages">-->
+                <li data-ng-repeat="x in names">
+                    {{x}}'s age is {{y}}.
+                </li>
+            </ul>
+        </div>
+
+        <div data-ng-init="persons=[{name:'John',country:'Norway'},
+                                    {name:'Hege',country:'Sweden'},
+                                    {name:'Kai',country:'Denmark'}]">
+            <p>循环对象</p>
+            <ul>
+                <li data-ng-repeat="x in persons">
+                    {{x.name + ' live in ' + x.country + "."}}
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+
+//        E 作为元素名使用
+//        A 作为属性使用
+//        C 作为类名使用
+//        M 作为注释使用
+//        restrict 默认值为 EA, 即可以通过元素名和属性名来调用指令。
+
+//        var app = angular.module('myApp',[]);
+//        app.directive("runoobDirective",function () {
+//            return{
+////                    注意：你必须设置的值为 "C" 才能通过类名来调用指令。
+////                restrict:"C",
+//                template:"<h1>自定义指令!</h1>"
+//            };
+//        })
+
+        var app = angular.module("myApp", []);
+        app.directive("runoobDirective", function() {
+            return {
+//                注意： 我们需要在该实例添加 replace 属性， 否则评论是不可见的。
+//                注意： 你必须设置 restrict 的值为 "M" 才能通过注释来调用指令。
+                restrict : "M",
+                replace : true,
+                template : "<h1>自定义指令!</h1>"
+            };
+        });
+    </script>
+
+</body>
+</html>

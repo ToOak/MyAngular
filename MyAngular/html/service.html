@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body ng-app="myApp" >
+    <div ng-controller="myCtrl">
+        <p> 当前页面的url:</p>
+        <h3>{{myUrl}}</h3>
+    </div>
+
+    <p>该实例使用了内建的 $location 服务获取当前页面的 URL。</p>
+
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function($scope, $location) {
+            $scope.myUrl = $location.absUrl();
+        });
+    </script>
+
+</body>
+</html>

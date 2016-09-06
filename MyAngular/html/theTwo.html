@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style >
+        input.ng-invalid{
+            /*编辑文本域，不同状态背景颜色会发送变化。 */
+            /*文本域添加了 required 属性，该值是必须的，如果为空则是不合法的。*/
+            background-color: lightblue;
+        }
+    </style>
+</head>
+<body ng-app="myAngular">
+    <div ng-app="myApp" ng-controller="namesCtrl">
+        <p><input type="text" ng-model="test"></p>
+        <ul>
+            <li ng-repeat="x in names | filter:test | orderBy:'country'">
+                {{ (x.name | uppercase) + ', ' + x.country }}
+            </li>
+        </ul>
+    </div>
+
+    <div ng-controller="costCtrl">
+
+        数量: <input type="number" ng-model="quantity">
+        价格: <input type="number" ng-model="price">
+
+        <p>总价 = {{ (quantity * price) | currency }}</p>
+
+    </div>
+    <div ng-controller="myCtrl">
+
+        <h1>姓氏为 {{lastname}} 家族成员:</h1>
+        <ul>
+            <li ng-repeat="x in names">{{x}} {{lastname}}</li>
+        </ul>
+
+        <p>尝试修改以下表单。</p>
+        <h1>{{carname}}</h1>
+        <input ng-model="carname"/>
+        <ul>
+            <li data-ng-repeat="x in carnames">{{x}}</li>
+        </ul>
+
+        <br>
+
+        名: <input type="text" ng-model="firstName" required><br>
+        姓: <input type="text" ng-model="lastName"><br>
+        <br>
+        大写姓（过滤器）：{{firstName | uppercase}}
+        <br>
+        姓名: {{firstName + " " + lastName}}
+        <br>
+        全名：{{funname()}}
+        <br>
+        <ul>
+            <li data-ng-repeat="x in novels | orderBy:'author'">
+                {{"《" + x.name + "》" + " " + x.author}}
+            </li>
+        </ul>
+
+    </div>
+    <form name="myForm" ng-init="myText = 'test@runoob.com'">
+        Email:
+        <input type="email" name="myAdd" ng-model="text" required>
+        <span ng-show="myForm.myAdd.$error.email">不是一个合法的邮箱不是一个合法的邮箱地址</span>
+
+        <br>
+        Email:
+        <input type="email" name="myAddress" ng-model="myText" required>
+        <p>编辑邮箱地址，查看状态的改变。</p>
+        <h1>状态</h1>
+        <p>Valid: {{myForm.myAddress.$valid}} (如果输入的值是合法的则为 true)。</p>
+        <p>Dirty: {{myForm.myAddress.$dirty}} (如果值改变则为 true)。</p>
+        <p>Touched: {{myForm.myAddress.$touched}} (如果通过触屏点击则为 true)。</p>
+
+    </form>
+
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+    <script src="../controller/theTwoController.js"></script>
+
+</body>
+</html>
