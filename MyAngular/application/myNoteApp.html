@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body data-ng-app="myNoteApp" data-ng-controller="myNoteCtrl">
+    <h2>我的笔记</h2>
+    <textarea data-ng-model="message" cols="40" rows="10"></textarea>
+    <p>
+        <button data-ng-click="save()">保存</button>
+        <button data-ng-click="clear()">清除</button>
+    </p>
+    <p>剩余字数：<span data-ng-bind="left()"></span></p>
+ <script src="myNoteApp.js"></script>
+ <script src="myNoteCtrl.js"></script>
+    <!--http://www.runoob.com/angularjs/angularjs-reference.html-->
+</body>
+</html>
