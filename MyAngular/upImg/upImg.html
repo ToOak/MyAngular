@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" ng-app='myApp'>
+<head>
+    <meta charset="UTF-8">
+    <title>Angular Base64 Upload Demo</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+    <script type="text/javascript" src="upImg.js"></script>
+    <script type="text/javascript">
+        angular.module('myApp', ['naif.base64'])
+                .controller('ctrl', function($scope, $http, $window, $rootScope){
+
+                    var uploadedCount = 0;
+
+                    $scope.files = [];
+                    $scope.file = {};
+
+                    $scope.uploadFiles = function() {
+
+                        var files = angular.copy($scope.files);
+
+                        if ($scope.file) {
+                            files.push($scope.file);
+                        }
+
+                        if (files.length === 0) {
+                            $window.alert('Please select files!');
+                            return false;
+                        }
+
+                        for (var i = files.length - 1; i >= 0; i--) {
+                            var file = files[i];
+                            $http.post('server.php', file)
+                                    .success(function(res){
+                                        uploadedCount ++;
+                                        if (uploadedCount == files.length) {
+                                            $window.alert('View uploaded files?');
+                                            $window.location.assign('/uploads');
+                                        }
+                                    });
+                        }
+                    };
+                });
+    </script>
+    <style>
+        body{padding-bottom: 50px;}
+        .alert{margin-top: 15px;}
+    </style>
+</head>
+<body ng-controller="ctrl">
+<div class="container">
+    <form name="form">
+        <h3>Single File Selection</h3>
+        <div class="input-group">
+            <label for="file">Select File</label>
+            <input class="form-control" type="file" ng-model="file" name="inputFile" base-sixty-four-input required maxsize="500" accept="image/*">
+            <span class="help-block">
+          <a ng-click="file=null" class="btn btn-default">Clear input</a>
+          <ul>
+            <li>required</li>
+            <li>maxsize = 500</li>
+            <li>accept = image/*</li>
+          </ul>
+        </span>
+            <div class="alert" ng-class="{'alert-danger': form.inputFile.$invalid, 'alert-success': form.inputFile.$valid}">
+                form.inputFile.$error: {{ form.inputFile.$error }}
+            </div>
+        </div>
+        <b>Model Value:</b>
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>filename</th>
+                <th>filetype</th>
+                <th>filesize (<i><small>KB</small></i>)</th>
+                <th>base64</th>
+            </tr>
+            <tr ng-show="file">
+                <td>{{file.filename}}</td>
+                <td>{{file.filetype}}</td>
+                <td>{{file.filesize / 1000}}</td>
+                <td>{{file.base64.substring(0, 30)}}...</td>
+                <!--<td>{{file.base64}}</td>-->
+            </tr>
+            <tr>
+                <td colspan="4" ng-show="!file">
+                    <small><i>No file selected.</i></small>
+                </td>
+            </tr>
+        </table>
+        <hr>
+    </form>
+    <img width="200" height="180" src="data:{{file.filetype}};base64,{{file.base64}}" />
+</div>
+</body>
+
+</html>
