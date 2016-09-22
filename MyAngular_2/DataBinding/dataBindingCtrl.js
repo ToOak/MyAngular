@@ -13,6 +13,11 @@
 //     updateClock();
 // };
 
+/**
+ * 全局方法构建控制器
+ * @param $scope
+ * @constructor
+ */
 function MyController($scope) {
     $scope.clock = {
         now:new Date()

@@ -1,7 +1,9 @@
 
-菜鸟入门级学习：http://www.runoob.com/
+菜鸟入门级学习：http://www.runoob.com/        --------------MyAngular
 
 博客：http://guoningyan.com/
 
 编译：//app目录下（根目录（此目录有index.html））
       fis3 release -d ../dist
+
+《AngularJS权威教程.pdf》         --------------MyAngular_2
