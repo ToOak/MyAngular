@@ -6,8 +6,14 @@
 
     <script type="text/javascript">
         angular.module('ngRouteExample', ['ngRoute'])
-                .controller('HomeController', function ($scope, $route) { $scope.$route = $route;})
-                .controller('AboutController', function ($scope, $route) { $scope.$route = $route;})
+                .controller('HomeController', function ($scope, $route) {
+                    $scope.$route = $route;
+                    $scope.name = "HomeController";
+                })
+                .controller('AboutController', function ($scope, $route) {
+                    $scope.$route = $route;
+                    $scope.name = "AboutController";
+                })
                 .config(function ($routeProvider) {
                     $routeProvider.
                     when('/home', {
@@ -30,10 +36,12 @@
 <body ng-app="ngRouteExample" class="ng-scope">
 <script type="text/ng-template" id="embedded.home.html">
     <h1> Home </h1>
+    <h2>{{ name }}</h2>
 </script>
 
 <script type="text/ng-template" id="embedded.about.html">
     <h1> About </h1>
+    <h2>{{ name }}</h2>
 </script>
 
 <div>

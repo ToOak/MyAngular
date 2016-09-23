@@ -1,0 +1,50 @@
+<!doctype html>
+<html ng-app="firstApp">
+<head>
+    <meta charset="utf-8">
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body>
+<style>
+    .it{color:#ff7300;margin:10px;}
+    .curr{background: #006600;}
+    .fs18{font-size:30px;}
+    .pd20{padding:20px;background:#26a3db;}
+</style>
+<pre>
+   1.字符串数组形式。
+  < div ng-class="{true: 'active', false: 'inactive'}[isActive]">< /div>
+   相当于对这个求值：({true: 'active', false: 'inactive'})[false]	({true: 'active', false: 'inactive'})[true]
+  即 var ct={true: 'active', false: 'inactive'};
+  ct[true]或ct[false]得到值为'active'或 'inactive'
+   2.scope变量绑定，（不推荐使用）
+    $scope.test =“classname”;
+    < div class=”{{test}}”>< /div>
+   3. 象key/value方式，处理class混合
+  < div ng-class="{'selected': isSelected, 'car': isCar}">< /div>
+</pre>
+<div ng-controller="cartController">
+    <div class="it {{test}}">scope变量绑定</div>
+    <div class="it" ng-click="selM()" ng-class="{true: 'curr', false: ''}[isActive]">字符串数组形式，单击</div>
+    <div class="it" ng-class="{'fs18': isFs, 'pd20':isPd }"  ng-click="selM3()">对象key/value方式，处理class混合..将应用it fs18 pd20 。其中it是默认的</div>
+</div>
+<script>
+    var app=angular.module('firstApp',[]);//app模块名
+    app.controller('cartController',function($scope){
+        $scope.test='curr';//直接方式。
+        $scope.isActive=false;
+        $scope.selM=function(){
+            $scope.isActive=true;
+            console.log('当前选中否',$scope.isActive)
+        }
+        //第3种方式
+        $scope.isFs=false;
+        $scope.isPd=false;
+        $scope.selM3=function(){
+            $scope.isFs=true;
+            $scope.isPd=true;
+        }
+    });
+</script>
+</body>
+</html>
