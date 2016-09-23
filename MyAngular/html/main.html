@@ -46,7 +46,7 @@
 
         <div data-ng-app="" data-ng-init="names=['John','Hege','Kai'];ages=[12,16,14]">
             <p>使用ng-repeat来循环列表</p>
-            <ul>
+            <ul data-ng-repeat="y in ages">
                 <!--<li data-ng-repeat="x in names;y in ages">-->
                 <!--<li data-ng-repeat="x in names" data-ng-repeat="y in ages">-->
                 <li data-ng-repeat="x in names">
